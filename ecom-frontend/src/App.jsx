@@ -1,10 +1,19 @@
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Register from './pages/Register'
+import VerifyOtp from './pages/VerifyOtp'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
+import Navbar from './components/Navbar'
 
 
 function App() {
 
   return(
     <BrowserRouter>
-    <p>
+   
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login />}/>
@@ -13,7 +22,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />}/>
         <Route path="/reset-password" element={<ResetPassword />}/>
       </Routes>
-    </p>
+   
     
     </BrowserRouter>
   )
