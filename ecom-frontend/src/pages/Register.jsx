@@ -7,10 +7,12 @@ const Register = () => {
         email: '',
         phone: '',
         role: 'Customer',
-        password: ''
+        password: '',
+        confirmPassword: ''
     });
 
     const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,7 +20,6 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // You can send formData to backend here
         console.log(formData);
     };
 
@@ -89,7 +90,7 @@ const Register = () => {
                         </select>
                     </div>
 
-                    {/* Password with Eye Toggle */}
+                    {/* Password */}
                     <div>
                         <label htmlFor="password" className="block mb-1 text-sm font-medium text-gray-700">Password</label>
                         <div className="relative">
@@ -108,6 +109,29 @@ const Register = () => {
                                 className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
                             >
                                 {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Confirm Password */}
+                    <div>
+                        <label htmlFor="confirmPassword" className="block mb-1 text-sm font-medium text-gray-700">Confirm Password</label>
+                        <div className="relative">
+                            <input
+                                type={showConfirmPassword ? 'text' : 'password'}
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                placeholder="••••••••"
+                                className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+                                required
+                            />
+                            <span
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-700"
+                            >
+                                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                             </span>
                         </div>
                     </div>
