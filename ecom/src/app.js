@@ -6,18 +6,29 @@ import productRoutes from './routes/productRoutes.js';
 import authRoute from './routes/authRoute.js';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';   
+import cors from 'cors';   
 dotenv.config(); 
 
 const app =  express();
 
 
+app.use(
+    cors({
+        origin: 'http://localhost:5173',
+        credentials: true,
+    })
+)
 
 connectDb()
 app.use(express.json())
 app.use(express.urlencoded({encoded:true}));
 app.use(cookieParser())
 
-app.get('/',(req,res)=>{
+
+app.get('/test',(req,res)=>{
+
+    res.cookie('name', 'shristi', {maxAge: 10*1000, httpOnly: true});
+
     res.status(200).json({
         message : " get from app.js"
     })
@@ -29,7 +40,7 @@ app.use("/api/product", productRoutes)
 app.use("/api/auth", authRoute)
 
 
-const port = process.env.PORT
+const port =4000
 app.listen(port,()=>{
     console.log("port started at:",port)
 })

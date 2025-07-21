@@ -1,25 +1,43 @@
-import React, { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';
 import TextField from '../components/TextField';
 import registerField from '../config/registerField.js';
+import axios from 'axios';
 
 const Register = () => {
     const [formData, setFormData] = useState({
         userName: '',
         email: '',
         phone: '',
-        role: 'Customer',
+        address: '',
         password: '',
         confirmPassword: ''
     });
 
+    useEffect(() => {
+        const handleSaveCookie = async () => {
+            try {
+                const response = await axios.get('http://localhost:4000/test', {withCredentials: true});
+                console.log(response.data);
+            } catch (error) {
+                console.error("Error saving cookie:", error);
+            }
+        };
+        handleSaveCookie();
+    }, []);
     
 
-    const [email, setEmail] = useState('');
-
-    const [userName, setUserName] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const handlePostOperation = async(url, data) => {
+        try {
+            const result = await axios.post(url, data);
+            //return data
+            console.log(result)
+            return result;
+        } catch (error) {
+            //return error
+            console.log(error)
+            return error;
+        }
+    }
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -28,10 +46,19 @@ const Register = () => {
         console.log(email)
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log(formData);
+        console.table(formData);
+
+        const response = await handlePostOperation('http://localhost:4000/api/auth/register', formData);
+
+        if(response.status === 200) {
+            alert("Registration successful");
+        }else{
+            alert("Registration failed. Please try again.");
+        }
     };
+
 
     
 
