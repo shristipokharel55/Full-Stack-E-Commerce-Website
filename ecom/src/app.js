@@ -34,6 +34,14 @@ app.get('/test',(req,res)=>{
     })
 })
 
+app.get("/api/clearCookie", (req, res) => {
+    res.clearCookie('name'),{
+        maxAge:10*60*1000,
+        httpOnly: true
+    }
+    res.status(200).json({ message: "Cookie cleared" });
+});
+
 
 app.use('/api/user',userRoutes )
 app.use("/api/product", productRoutes)

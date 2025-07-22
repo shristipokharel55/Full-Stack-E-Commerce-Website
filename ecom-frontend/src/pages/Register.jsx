@@ -2,42 +2,27 @@ import React, { useEffect, useState } from 'react';
 import TextField from '../components/TextField';
 import registerField from '../config/registerField.js';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import handlePostOperation from '../config/handlePostOperation.js';
+import { BASE_URL, registerInitialValue } from '../config/constant.js';
 
 const Register = () => {
-    const [formData, setFormData] = useState({
-        userName: '',
-        email: '',
-        phone: '',
-        address: '',
-        password: '',
-        confirmPassword: ''
-    });
+    
+    const [formData, setFormData] = useState(registerInitialValue);
 
-    useEffect(() => {
-        const handleSaveCookie = async () => {
-            try {
-                const response = await axios.get('http://localhost:4000/test', {withCredentials: true});
-                console.log(response.data);
-            } catch (error) {
-                console.error("Error saving cookie:", error);
-            }
+  const handleSaveCookie = async () => {
+
+    Cookies.set('name', 'shristi');
+            // try {
+            //     const response = await axios.get('http://localhost:4000/test', {withCredentials: true});
+            //     console.log(response.data);
+            // } catch (error) {
+            //     console.error("Error saving cookie:", error);
+            // }
         };
-        handleSaveCookie();
-    }, []);
     
 
-    const handlePostOperation = async(url, data) => {
-        try {
-            const result = await axios.post(url, data);
-            //return data
-            console.log(result)
-            return result;
-        } catch (error) {
-            //return error
-            console.log(error)
-            return error;
-        }
-    }
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -46,14 +31,31 @@ const Register = () => {
         console.log(email)
     };
 
+
+    const handleClearCookie=async(e)=>{
+
+        Cookies.remove('name');
+        
+        // try {
+        //     await axios.get(`${BASE_URL}clearCookie`, {withCredentials: true});
+        // } catch (error) {
+        //     console.log(error)
+        // }
+    }
+
+    const name = Cookies.get('name');
+
+    
+
     const handleSubmit = async(e) => {
         e.preventDefault();
         console.table(formData);
 
-        const response = await handlePostOperation('http://localhost:4000/api/auth/register', formData);
+        const response = await handlePostOperation('auth/register', formData);
 
         if(response.status === 200) {
             alert("Registration successful");
+            setFormData(registerInitialValue); // Reset form data
         }else{
             alert("Registration failed. Please try again.");
         }
@@ -65,6 +67,9 @@ const Register = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-400">
             <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
+                {name}
+                <button onClick={handleClearCookie} className='border'>Clear Cookie</button>
+                <button onClick={handleSaveCookie} className='border'>Add Cookie</button>
                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Create an Account ✨</h2>
                 <form onSubmit={handleSubmit} className="space-y-5">
 
