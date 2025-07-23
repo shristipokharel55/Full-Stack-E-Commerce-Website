@@ -10,9 +10,22 @@ const Register = () => {
     
     const [formData, setFormData] = useState(registerInitialValue);
 
+    const [name, setName] = useState(
+     ''
+    ) 
+        
+
+    // localStorage.setItem("name", "Shristi")
+    // localStorage.getItem("name")
+    // localStorage.removeItem("name")
+    // localStorage.clear()
+
+ 
+
   const handleSaveCookie = async () => {
 
-    Cookies.set('name', 'shristi');
+    // Cookies.set('name', 'shristi');
+    localStorage.setItem('name', "Shristi");
             // try {
             //     const response = await axios.get('http://localhost:4000/test', {withCredentials: true});
             //     console.log(response.data);
@@ -35,6 +48,7 @@ const Register = () => {
     const handleClearCookie=async(e)=>{
 
         Cookies.remove('name');
+        localStorage.removeItem('name');
         
         // try {
         //     await axios.get(`${BASE_URL}clearCookie`, {withCredentials: true});
@@ -43,9 +57,17 @@ const Register = () => {
         // }
     }
 
-    const name = Cookies.get('name');
+    const clearAll=()=>{
+        localStorage.clear();
+    }
 
-    
+    // const name = Cookies.get('name');
+
+       useEffect(()=>{
+       setName(localStorage.getItem('name') || '');
+        localStorage.setItem('authToken', 'sdhbvcghsdvf');
+        localStorage.setItem('email', 'shristi@gmail.com');
+    }, [name, handleSaveCookie, handleClearCookie]);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -53,7 +75,7 @@ const Register = () => {
 
         const response = await handlePostOperation('auth/register', formData);
 
-        if(response.status === 200) {
+        if(response.status === 201) {
             alert("Registration successful");
             setFormData(registerInitialValue); // Reset form data
         }else{
@@ -67,9 +89,11 @@ const Register = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-400">
             <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-md">
-                {name}
+                
+                {/* {name} */}
                 <button onClick={handleClearCookie} className='border'>Clear Cookie</button>
                 <button onClick={handleSaveCookie} className='border'>Add Cookie</button>
+                <button onClick={clearAll} className='border'>Clear All Cookie</button>
                 <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">Create an Account ✨</h2>
                 <form onSubmit={handleSubmit} className="space-y-5">
 
