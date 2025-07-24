@@ -1,8 +1,12 @@
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import handlePostOperation from '../config/handlePostOperation';
 
 const VerifyOTP = () => {
     const inputRefs = useRef([]);
     const [otp, setOtp] = useState(new Array(6).fill(''));
+
+    const navigate = useNavigate();
 
     // Handle input change
     const handleChange = (element, index) => {
@@ -34,11 +38,22 @@ const VerifyOTP = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         const finalOtp = otp.join('');
-        // TODO: Send finalOtp to backend
-        console.log("Submitted OTP:", finalOtp);
+       const response = await handlePostOperation('auth/verify-otp', {otp: finalOtp});
+
+        if (response.status === 200) {
+            alert(response.data.message || "OTP validated"), 
+            localStorage.setItem("otp", otp)
+
+            setTimeout(() => {
+                navigate("/reset-password");
+            });
+        } else {
+            alert(response.response.message || "Error validating OTP");
+        }
+
     };
 
     return (

@@ -1,20 +1,37 @@
 // ResetPassword.jsx
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import handlePostOperation from '../config/handlePostOperation';
+import { useNavigate } from 'react-router-dom';
 
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [show, setShow] = useState(false);
 
-    const handleSubmit = (e) => {
+    const navigate = useNavigate();
+
+
+    const handleSubmit = async(e) => {
         e.preventDefault();
         if (newPassword !== confirmPassword) {
             alert("Passwords do not match");
             return;
         }
-        // TODO: Send newPassword to backend for resetting
-        console.log(newPassword);
+        
+        const response = await handlePostOperation('auth/reset-password', {password:newPassword});
+
+        console.log(response)
+        if (response.status === 200) {
+            alert(response.data.message || "Password reset successfully"), 
+            localStorage.setItem("email", email)
+
+            setTimeout(() => {
+                navigate("/login");
+            });
+        } else {
+            alert(response.response.message || "Error resetting password");
+        }
     };
 
     return (

@@ -71,7 +71,8 @@ router.post("/verify-otp", verifyOtp);
 
 router.post("/reset-password", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const email = req.cookies.userEmail;
+    const {password } = req.body;
 
     if (!email || !password) {
       throw new Error("Email and password required");

@@ -1,14 +1,32 @@
 // ForgotPassword.jsx
 import React, { useState } from 'react';
+import handlePostOperation from '../config/handlePostOperation';
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         // TODO: Send email to backend for OTP generation
-        console.log(email);
+
+        const response = await handlePostOperation('auth/forgotPassword', {email});
+
+        if (response.status === 200) {
+            alert(response.data.message || "OTP send successfully"), 
+            localStorage.setItem("email", email)
+
+            setTimeout(() => {
+                navigate("/verify-otp");
+            });
+        } else {
+            alert(response.response.message || "Error sending OTP");
+        }
+        console.table(email);
     };
+
+    
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-400">
