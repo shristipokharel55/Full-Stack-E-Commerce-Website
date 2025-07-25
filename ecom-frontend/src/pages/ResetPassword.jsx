@@ -1,5 +1,5 @@
 // ResetPassword.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import handlePostOperation from '../config/handlePostOperation';
 import { useNavigate } from 'react-router-dom';
@@ -33,6 +33,18 @@ const ResetPassword = () => {
             alert(response.response.message || "Error resetting password");
         }
     };
+
+
+    useEffect(() => {
+        // Check if user is already authenticated
+        const email = localStorage.getItem("email");
+        const isOtpVerified = localStorage.getItem("isOtpVerified");
+
+        if (!email || !isOtpVerified) {
+            navigate("/verify-otp");
+        }
+
+    }, [])
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-400">

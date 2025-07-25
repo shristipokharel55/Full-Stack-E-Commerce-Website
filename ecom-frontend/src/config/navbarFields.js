@@ -20,8 +20,7 @@ export const navbarFields = [{
 },
 {
     name:"Reset Password",
-    path
-: "/reset-password"
+    path: "/reset-password"
 }
 
 ];

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import handlePostOperation from '../config/handlePostOperation';
 
@@ -23,6 +23,14 @@ const VerifyOTP = () => {
         }
     };
 
+    useEffect(() => {
+        const email = localStorage.getItem("email");
+        if(!email){
+            navigate("/forgot-password");
+        }
+
+    }, [])
+
     const handleKeyDown = (e, index) => {
         if (e.key === 'Backspace') {
             if (otp[index] === '' && index > 0) {
@@ -45,7 +53,7 @@ const VerifyOTP = () => {
 
         if (response.status === 200) {
             alert(response.data.message || "OTP validated"), 
-            localStorage.setItem("otp", otp)
+            localStorage.setItem("isOtpVerified", true)
 
             setTimeout(() => {
                 navigate("/reset-password");

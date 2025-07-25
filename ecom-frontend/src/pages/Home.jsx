@@ -1,8 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import laptopImage from '../assets/react.svg'; // Replace with your laptop image
+import { handleGetOperation } from '../config/handleGetOperation';
 
 const Home = () => {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // This effect runs once when the component mounts
+    const token = localStorage.getItem("authToken")
+    if(!token){
+    navigate("/login")
+    }
+
+    const checkAuth = async()=>{
+        const response = await handleGetOperation('auth/verify/1');
+        setLoading(true);
+        console.log(response)
+    }
+
+
+
+    }, [])   
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-red-400 text-white">
             {/* Navigation */}

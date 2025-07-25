@@ -1,5 +1,5 @@
 // ForgotPassword.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import handlePostOperation from '../config/handlePostOperation';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,6 +26,7 @@ const ForgotPassword = () => {
         console.table(email);
     };
 
+    
     
 
     return (

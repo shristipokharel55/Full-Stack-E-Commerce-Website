@@ -69,6 +69,8 @@ router.post("/login", login);
 router.post("/forgotPassword", forgotPassword);
 router.post("/verify-otp", verifyOtp);
 
+// router.get("is-authenticated", )
+
 router.post("/reset-password", async (req, res) => {
   try {
     const email = req.cookies.userEmail;
@@ -105,5 +107,26 @@ router.post("/reset-password", async (req, res) => {
   }
 });
 
+router.get("/verify/:step", async (req, res) => {
+  try {
+    const {step} = req.params;
+
+    if(step ==="1"){
+      constauthToken = req.cookies.authToken;
+    }
+    if(step ==="2"){
+
+    }
+    if(step ==="3"){
+
+    }
+
+  } catch (error) {
+    console.log(error)
+    res.status(400).json({
+      error: error.message
+    })
+  }
+})
 
 export default router;
