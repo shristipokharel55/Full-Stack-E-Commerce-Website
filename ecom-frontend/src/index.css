@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 body {
-  @apply bg-gray-100 text-gray-900;
+  background-color: #f3f4f6; /* Tailwind's bg-gray-100 */
+  color: #111827;            /* Tailwind's text-gray-900 */
 }
 
 input{
@@ -19,11 +20,16 @@ input::-webkit-inner-spin-button {
 
 @layer components {
   form {
-    @apply border-gray-300 rounded;
+    border: 1px solid #d1d5db; /* Tailwind's border-gray-300 */
+    border-radius: 0.25rem;     /* Tailwind's rounded */
   }
 
   .auth-input {
-    @apply border border-gray-600 rounded p-2 w-[80vw] max-w-[400px];
+    border: 1px solid #4b5563; /* Tailwind's border-gray-600 */
+    border-radius: 0.25rem;    /* Tailwind's rounded */
+    padding: 0.5rem;           /* Tailwind's p-2 */
+    width: 80vw;               /* Tailwind's w-[80vw] */
+    max-width: 400px;          /* Tailwind's max-w-[400px] */
   }
 }
 
