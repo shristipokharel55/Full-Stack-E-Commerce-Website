@@ -8,6 +8,7 @@ const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [show, setShow] = useState(false);
+    const  [email,setEmail] = useState('');
 
     const navigate = useNavigate();
 
@@ -21,10 +22,10 @@ const ResetPassword = () => {
         
         const response = await handlePostOperation('auth/reset-password', {password:newPassword});
 
-        console.log(response)
+        console.log(response.email)
         if (response.status === 200) {
             alert(response.data.message || "Password reset successfully"), 
-            localStorage.setItem("email", email)
+            // localStorage.setItem("email", email)
 
             setTimeout(() => {
                 navigate("/login");
@@ -38,6 +39,7 @@ const ResetPassword = () => {
     useEffect(() => {
         // Check if user is already authenticated
         const email = localStorage.getItem("email");
+        setEmail(email);
         const isOtpVerified = localStorage.getItem("isOtpVerified");
 
         if (!email || !isOtpVerified) {

@@ -19,7 +19,7 @@ const registerField=[
       name:"phone",
       label:"Phone",
       placeholder:"Enter your phone number",
-      type:"PHONE"
+      type:"number"
     },
     {
       id:"address",

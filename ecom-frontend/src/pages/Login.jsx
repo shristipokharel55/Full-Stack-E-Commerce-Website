@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TextField from '../components/TextField';
 import PasswordField from '../components/PasswordField';
 import handlePostOperation from '../config/handlePostOperation';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -102,7 +102,9 @@ const Login = () => {
                     </button>
 
                     <div className="text-sm text-center text-gray-500 mt-4">
-                        Forgot your password? <span className="text-pink-600 hover:underline cursor-pointer">Reset here</span>
+                        Forgot your password? 
+                        <Link to="/forgot-password" className="text-pink-600 hover:underline">Reset here
+                        </Link>
                     </div>
                 </form>
             </div>

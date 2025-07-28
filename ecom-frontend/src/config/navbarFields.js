@@ -1,26 +1,26 @@
-export const navbarFields = [{
-    name:"Home",
-    path:"/"
-},
-{
-    name:"Login",
-    path: "/login"}
-,{
-    name:"Register",
-
-    path: "/register"
-},
-{
-    name:"Verify OTP",
-    path: "/verify-otp"
-},
-{
-    name:"Forgot Password",
-    path: "/forgot-password"
-},
-{
-    name:"Reset Password",
-    path: "/reset-password"
-}
-
+export const navbarFields = [
+  {
+    name: "Home",
+    pathname: "/",
+  },
+  {
+    name: "Register",
+    pathname: "/register",
+  },
+  {
+    name: "Login",
+    pathname: "/login",
+  },
+  {
+    name: "Forgot Password",
+    pathname: "/forgot-password",
+  },
+  {
+    name: "Verify OTP",
+    pathname: "/verify-otp",
+  },
+  {
+    name: "Reset Password",
+    pathname: "/reset-password",
+  },
 ];

@@ -13,8 +13,7 @@ const Navbar = () => {
   navbarFields.map(({ name, path }) => (
         <Link
           key={name}
-          
-          
+        
           to={path}
           className={`${pathname===path?"font-bold bg-gray-300 p-2 rounded hover:text-blue-500":"hover:text-red-500"}`}        >
           {name}
