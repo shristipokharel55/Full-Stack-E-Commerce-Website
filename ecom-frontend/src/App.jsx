@@ -6,13 +6,17 @@ import VerifyOtp from './pages/VerifyOtp'
 import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import Navbar from './components/Navbar'
+import { Toaster } from 'react-hot-toast'
 
 
 function App() {
 
   return(
     <BrowserRouter>
-   
+    
+          
+    <Toaster position='top-right' />
+
       <Navbar />
       <Routes>
         <Route path="/" element={<Home/>}/>

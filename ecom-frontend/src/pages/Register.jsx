@@ -71,7 +71,7 @@ const Register = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.table(formData);
+        console.table(formData); 
 
         const response = await handlePostOperation('auth/register', formData);
 
