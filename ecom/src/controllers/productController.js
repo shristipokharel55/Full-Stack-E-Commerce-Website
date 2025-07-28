@@ -3,8 +3,23 @@ import productServices from "../services/productServices.js";
 
 // Controller to create a new product
 const createProduct = async (req, res) => {
+
     try {
+
+        if(!req.file){
+            throw new Error("Image is required");
+        }
+
+        console.log(req.file)
+
+        const filePath = req.file.path; // Get the file path from the uploaded file
+        const fileName = req.file.filename; // Get the file name from the uploaded file
+
+
         const product = req.body; // Get product data from request body
+
+        product.imageUrl = filePath; // Add file path to product data
+        product.imageName = fileName; // Add file name to product data
 
         // Check if product data is provided
         if (!product) {
@@ -26,7 +41,7 @@ const createProduct = async (req, res) => {
         });
     } catch (error) {
         console.log(error.message);
-        res.status(501).send("error occured to create the product");
+        res.status(501).send(error.message);
     }
 };
 
