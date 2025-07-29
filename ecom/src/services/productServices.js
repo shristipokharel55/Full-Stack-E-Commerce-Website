@@ -43,6 +43,14 @@ const deleteProductById = async (id)=>{
 }
 
 const updateProduct = async(data, id)=>{
+    const product = await Product.findById({_id:id});
+    
+    if (data.imageName) {
+        const oldImageName = product.imageName; // Store old image name for deletion    
+        await cloudinary.uploader.destroy(oldImageName); // Delete old image from Cloudinary
+
+        data.imageName = data.newImageName; // Update image name in the product data
+    }
     return await Product.findByIdAndUpdate(id, data, {new:true});
 }
 

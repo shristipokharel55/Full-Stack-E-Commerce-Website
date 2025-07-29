@@ -14,6 +14,6 @@ router.get('/getProductById/:id', getProductById)
 
 router.delete('/deleteProductById/:id',isLoggedIn,isAdmin, deleteProductById)
 
-router.put('/updateProduct/:id',isLoggedIn,isAdmin, updateProduct)
+router.put('/updateProduct/:id',uploads.single('image'), updateProduct)
 
 export default router

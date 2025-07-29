@@ -10,7 +10,14 @@ const createProduct = async (req, res) => {
             throw new Error("Image is required");
         }
 
-        console.log(req.file)
+        const {productName, description, display, ram, gen, rom, brand, use, price, stock, featured, isActive, rating, processor} = req.body;
+
+        
+
+        const productInfo = await productServices.createProduct(req.body)
+        res.send (productInfo);
+
+        
 
         const filePath = req.file.path; // Get the file path from the uploaded file
         const fileName = req.file.filename; // Get the file name from the uploaded file
@@ -114,6 +121,19 @@ const deleteProductById = async (req, res) => {
 // Controller to update a product by its ID
 const updateProduct = async (req, res) => {
     try {
+
+        if(!req.file){
+            throw new Error("Image is required");
+        }
+        console.log(req.file);
+
+        if(req.file){
+            const newFilePath = req.file.path; // Get the file path from the uploaded file
+            const newFileName = req.file.filename; // Get the file name from the uploaded file
+            req.body.newImageName = newFileName; // Add file name to product data
+            req.body.newImagePath = newFilePath; // Add file path to product data
+        }
+
         const id = req.params.id;       // Get product ID from URL params
         const product = req.body;       // Get updated product data from request body
 
