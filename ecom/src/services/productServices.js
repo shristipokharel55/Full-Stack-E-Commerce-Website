@@ -32,6 +32,13 @@ const getProductById = async(id)=>{
 }
 
 const deleteProductById = async (id)=>{
+    const product = await Product.findOne({_id:id})
+    imageName = product.imageName;
+    const cloudinaryImg = await cloudinary.uploader.destroy(imageName);
+    console.log(cloudinaryImg)
+    // if (imageName) {
+    //     await cloudinary.uploader.destroy(imageName); // Delete image from Cloudinary
+    // }
     return await Product.findByIdAndDelete(id);
 }
 
