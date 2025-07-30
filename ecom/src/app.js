@@ -4,6 +4,7 @@ import connectDb from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import authRoute from './routes/authRoute.js';
+import orderRoutes from './routes/orderRoute.js';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';   
 import cors from 'cors';   
@@ -46,6 +47,7 @@ app.get("/api/clearCookie", (req, res) => {
 app.use('/api/user',userRoutes )
 app.use("/api/product", productRoutes)
 app.use("/api/auth", authRoute)
+app.use('/api/order', orderRoutes)
 
 
 const port =4000

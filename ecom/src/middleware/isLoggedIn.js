@@ -13,7 +13,6 @@
             req.user = decoded
             next();
 
-        res.send("cookiesss")
 
         }catch(error){
             console.log(error.message)
