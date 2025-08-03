@@ -7,10 +7,16 @@ const createOrder = async (order) => {
 }
 
 const getOrderById = async (id) => {
-    const result = await Order.findById(id).populate('user', 'name email'); // Populate user details
+    const result = await Order.findById(id); 
 
     return result;
 }
 
+const getOrderByUserId = async (userId) => {
+    const result = await Order.find({ user: userId });
+    return result;
+}
 
-export default { createOrder, getOrderById };
+
+
+export default { createOrder, getOrderById, getOrderByUserId };

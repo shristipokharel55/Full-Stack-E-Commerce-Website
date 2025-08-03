@@ -22,21 +22,12 @@ const createOrder = async(req, res)=>{
 
 const getOrderById = async (req, res) => {
     try {
-        const orderId = req.params.id;
-        if (!orderId) {
-            return res.status(400).send({ message: "Order ID is required" });
-        }
-
-        const data = await orderServices.getOrderById(orderId);
-
-        if (!data) {
-            return res.status(404).send({ message: "Order not found" });
-        }
+        const userId = req.user.id;
+        const data = await orderServices.getOrderByUserId(userId);
 
         res.status(200).json({
-            message: "Order fetched successfully",
-            data
-        });
+            message: "User's Order fetched successfully",
+        })
     } catch (error) {
         console.log(error.message);
         res.status(400).send({error:error.message, message:"Error occurred while fetching order by ID"});
