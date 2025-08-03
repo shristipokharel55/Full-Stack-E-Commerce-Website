@@ -17,6 +17,15 @@ const getOrderByUserId = async (userId) => {
     return result;
 }
 
+const updateOrderStatus = async(id, status) => {
+    return await Order.findByIdAndUpdate(id, 
+        { orderStatus: status }, { new: true });
+}
 
+const updatePaymentStatus = async(id, status)=>{
+    return await Order.fundByIdAndUpdate(id, {
+        paymentStatus: status}, { new: true });
+    
+}
 
-export default { createOrder, getOrderById, getOrderByUserId };
+export default { createOrder, getOrderById, getOrderByUserId, updateOrderStatus, updatePaymentStatus };
