@@ -9,6 +9,30 @@ const createOrder = async(req, res)=>{
         const order = req.body;
         order.user = userId; // Add userId to the order data
 
+        if(order.paymentMethod ==="KHALTI"){
+
+            const totalAmount = order.totalAmount 
+
+
+
+            const options={
+                "return_url":"http://localhost:5173/dashboard",
+                "website_url":"http://localhost:5173/",
+                "ämount":totalAmount*100, // Convert to paisa
+                "purchase_order_id":Date.now(),
+                "purchase_order_name":`order-${Date.now()}`
+            }
+            await axios.post("https://dev.khalti.com/api/v2/epayment/initiate/", options,{
+                headers:{
+                    Áuthorization: `Key ${process.env.KHALTI_API_KEY}`,
+                    "Content-Type": "application/json"
+                }
+            })
+
+            console.log(Response.data)
+            return res.status(200).send(result.data)
+        }
+
         const data = await orderServices.createOrder(order);
 
         console.log(data);
