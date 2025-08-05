@@ -43,8 +43,11 @@ const orderSchema = new mongoose.Schema({
     },
     paymentMethod:{
         type:String,
-        enum:["cod", "khalti"],
-        default:"cod"
+        enum:["COD", "KHALTI"],
+        default:"COD"
+    },
+    pidx:{
+        type:String
     }
 })
 

@@ -1,4 +1,4 @@
-import orderServices from "../services/orderService.js";
+import orderService from "../services/orderService.js";
 import axios from "axios"
 
 const createOrder = async(req, res)=>{
@@ -31,11 +31,30 @@ const createOrder = async(req, res)=>{
                 }
             })
 
+            if(result.data.pidx){
+                order.pidx = result.data.pidx
+
+                const khaltiResult = await orderService.createOrder(order)
+
+                khaltiResult.paymentUrl = result.data.payment_url
+
+                console.log(result.data)
+                return res.status(200).json({
+                    data:khaltiResult,
+                    payment_url:result.data.payment_url
+                });
+
+
+
+            } else{
+                throw new Error("Khalti payment initaite")
+            }
+
             console.log(result.data)
-            return res.status(200).send(result.data)
+            return res.status(200).send(khaltiResult)
         }
 
-        const data = await orderServices.createOrder(order);
+        const data = await orderService.createOrder(order);
 
         console.log(data);
 
@@ -49,7 +68,7 @@ const createOrder = async(req, res)=>{
 const getOrderById = async(req, res)=>{
     try {
         const id = req.params.id
-        const data = await orderServices.getOrderById(id)
+        const data = await orderService.getOrderById(id)
         res.status(200).json({data})
         
     } catch (error) {
@@ -79,7 +98,7 @@ const updateOrderStatus=async(req, res)=>{
     try {
         const orderId = req.params.id
         const status = req.body.updateOrderStatus
-        const data = await orderServices.updateOrderStatus(orderId, status)
+        const data = await orderService.updateOrderStatus(orderId, status)
     } catch (error) {
         res.status(400).json({
             error:error.message
@@ -92,7 +111,10 @@ const updatePaymentStatus= async(req, res)=>{
     try {
         const status = req.body.updatePaymentStatus 
         const id = req.params.id
-        const data = await orderServices.updatePaymentStatus(id, status)
+
+
+
+        const data = await orderService.updatePaymentStatus(id, status)
         res.status(200).json({data})
     } catch (error) {
         res.status(400).json({
@@ -102,4 +124,19 @@ const updatePaymentStatus= async(req, res)=>{
     }
 }
 
-export { createOrder, getOrderById, getOrderByUserId, updateOrderStatus, updatePaymentStatus };
+const updateKhaltiPaymentStatus = async(req, res)=>{
+    try {
+        const {pidx, totalAmount} = req.body
+        const userId = req.user.id
+        const data = await orderService.updateKhaltiPaymentStatus(pidx, totalAmount, userId)
+
+        res.status(200).send("Updated Pyament Status")
+    } catch (error) {
+        res.status(400).json({
+            message:"failed to update khalti payment status",
+            error:error.message
+        })
+    }
+}
+
+export { createOrder, getOrderById, getOrderByUserId, updateOrderStatus, updatePaymentStatus, updateKhaltiPaymentStatus };
