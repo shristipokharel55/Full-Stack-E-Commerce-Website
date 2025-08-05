@@ -13,7 +13,7 @@ const Home = () => {
     const token = localStorage.getItem("authToken");
 
     if (!token) {
-      navigate("/login");
+      // navigate("/login");
     }
 
     const checkAuth = async () => {
@@ -27,7 +27,7 @@ const Home = () => {
         // setLoading(false);
       } else {
         toast.error(response.response.data.error || "Authentication failed!");
-        navigate("/login");
+        // navigate("/login");
         // setLoading(false)
       }
     };

@@ -10,12 +10,12 @@ const Navbar = () => {
     <nav className="bg-white text-purple-700 shadow-md px-6 py-3 flex flex-wrap items-center justify-center gap-4 rounded-b-xl border-b border-purple-200">
       
 {
-  navbarFields.map(({ name, path }) => (
+  navbarFields.map(({ name, pathname }) => (
         <Link
           key={name}
         
-          to={path}
-          className={`${pathname===path?"font-bold bg-gray-300 p-2 rounded hover:text-blue-500":"hover:text-red-500"}`}        >
+          to={pathname}
+          className={`${pathname===pathname?"font-bold bg-gray-300 p-2 rounded hover:text-blue-500":"hover:text-red-500"}`}        >
           {name}
         </Link>
       )

@@ -43,7 +43,7 @@ const Login = () => {
 
             setTimeout(() => {
                 navigate("/");
-            });
+            },(1000));
         } else {
             alert(response.response.message || "Login Failed");
         }
