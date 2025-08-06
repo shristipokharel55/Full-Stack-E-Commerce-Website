@@ -6,15 +6,15 @@ const createOrder = async(req, res)=>{
 
         const userId = req.user.id; // Assuming userId is available in req.user after authentication
 
-        const order = req.body;
-        order.user = userId; // Add userId to the order data
+        const Order = req.body;
+        Order.user = userId; // Add userId to the order data
 
-        if(order.paymentMethod ==="KHALTI"){
+        if(Order.paymentMethod ==="KHALTI"){
 
-            const totalAmount = order.totalAmount 
+            const totalAmount = Order.totalAmount 
 
 
-            console.log(order)
+            console.log(Order)
 
             const options={
                 "return_url":"http://localhost:5173/dashboard",
@@ -32,9 +32,9 @@ const createOrder = async(req, res)=>{
             })
 
             if(result.data.pidx){
-                order.pidx = result.data.pidx
+                Order.pidx = result.data.pidx
 
-                const khaltiResult = await orderService.createOrder(order)
+                const khaltiResult = await orderService.createOrder(Order)
 
                 khaltiResult.paymentUrl = result.data.payment_url
 
@@ -54,7 +54,7 @@ const createOrder = async(req, res)=>{
             return res.status(200).send(khaltiResult)
         }
 
-        const data = await orderService.createOrder(order);
+        const data = await orderService.createOrder(Order);
 
         console.log(data);
 
@@ -130,7 +130,7 @@ const updateKhaltiPaymentStatus = async(req, res)=>{
         const userId = req.user.id
         const data = await orderService.updateKhaltiPaymentStatus(pidx, totalAmount, userId)
 
-        res.status(200).send("Updated Pyament Status")
+        res.status(200).send("Updated Payment Status")
     } catch (error) {
         res.status(400).json({
             message:"failed to update khalti payment status",

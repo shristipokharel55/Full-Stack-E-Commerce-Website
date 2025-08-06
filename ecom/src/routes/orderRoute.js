@@ -11,7 +11,7 @@ router.get('/getOrderById/:id', getOrderById);
 router.post('/getOrderByUserId', getOrderByUserId)
 router.post('/updateOrderStatus/:id', isLoggedIn, isAdmin, updateOrderStatus)
 router.post('/updatePaymentStatus/:id', isLoggedIn, isAdmin, updatePaymentStatus)
-router.post('/updateKhaltiPaymentStatus/:id', isLoggedIn, updateKhaltiPaymentStatus)
+router.post('/updateKhaltiPaymentStatus', isLoggedIn, updateKhaltiPaymentStatus)
 
 
 
