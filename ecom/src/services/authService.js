@@ -125,8 +125,8 @@ const register = async (data) => {
   console.log(userExist);
 
   if (userExist.length > 0) {
-    new Error("user already exist");
-  }
+  throw new Error("user already exist");
+}
 
   return await User.create({
     email: email,
